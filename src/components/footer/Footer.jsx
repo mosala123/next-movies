@@ -71,7 +71,7 @@ const FooterPages = () => {
         <div className="newsletter-card">
           <div className="newsletter-content">
             <h2>Stay in the Loop</h2>
-            <p>Subscribe to get special offers, free giveaways, and exclusive deals.</p>
+            <p>Subscribe to get special offers , free giveaways , and exclusive deals.</p>
           </div>
           
           <div className="newsletter-form">
