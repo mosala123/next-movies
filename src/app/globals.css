@@ -1,51 +1,136 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 222 34% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 30% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 30% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 8 90% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 216 22% 16%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 218 24% 14%;
+    --muted-foreground: 215 20% 70%;
+    --accent: 42 96% 62%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 218 23% 20%;
+    --input: 218 23% 20%;
+    --ring: 8 90% 58%;
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 222 34% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 30% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 30% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 8 90% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 216 22% 16%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 218 24% 14%;
+    --muted-foreground: 215 20% 70%;
+    --accent: 42 96% 62%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 218 23% 20%;
+    --input: 218 23% 20%;
+    --ring: 8 90% 58%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at top, rgba(255, 120, 55, 0.18), transparent 26%),
+      radial-gradient(circle at 15% 18%, rgba(255, 210, 110, 0.14), transparent 18%),
+      radial-gradient(circle at 85% 12%, rgba(77, 163, 255, 0.14), transparent 18%),
+      linear-gradient(180deg, rgb(8, 10, 14) 0%, rgb(12, 15, 22) 54%, rgb(6, 8, 13) 100%);
+    min-height: 100vh;
+  }
+
+  a {
+    @apply transition-colors;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .glass-panel {
+    @apply rounded-[28px] border border-white/10 bg-white/5 shadow-2xl shadow-black/20 backdrop-blur-xl;
+  }
+
+  .surface-panel {
+    @apply rounded-3xl border border-white/10 bg-[linear-gradient(180deg,rgba(20,24,33,0.86),rgba(10,12,18,0.92))] shadow-2xl shadow-black/20 backdrop-blur-xl;
+  }
+
+  .cinematic-shell {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 30px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  .cinematic-orb {
+    background: radial-gradient(circle, rgba(255, 150, 64, 0.38), rgba(255, 150, 64, 0));
+    pointer-events: none;
+  }
+
+  .tilt-panel {
+    transform-style: preserve-3d;
+    transition: transform 350ms ease, border-color 350ms ease, box-shadow 350ms ease;
+    animation: float-up 700ms ease both;
+  }
+
+  .tilt-panel:hover {
+    transform: perspective(1200px) rotateX(6deg) rotateY(-8deg) translateY(-6px) scale(1.02);
+    border-color: rgba(255, 133, 73, 0.42);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  }
 }
 
-.shop-toast {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 2100;
-  background: #0f172a;
-  color: #fff;
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 0.9rem;
-  box-shadow: 0 10px 25px rgba(2, 6, 23, 0.3);
-  animation: shopToastIn 0.2s ease-out;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 42px 42px;
+  }
 }
 
-@keyframes shopToastIn {
+@keyframes float-up {
   from {
-    transform: translateY(8px);
     opacity: 0;
+    transform: translateY(28px) scale(0.98);
   }
+
   to {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
