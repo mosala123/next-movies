@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeferredValue, useEffect, useState } from "react";
+import { Suspense, useDeferredValue, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
@@ -40,7 +40,7 @@ function sortItems(items: MediaItem[], sortBy: string) {
   return sorted;
 }
 
-export function BrowseShowcaseClient({ title, description, items, genreEntries }: BrowseShowcaseClientProps) {
+function BrowseShowcaseContent({ title, description, items, genreEntries }: BrowseShowcaseClientProps) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
   const [selectedGenre, setSelectedGenre] = useState("all");
@@ -221,5 +221,20 @@ export function BrowseShowcaseClient({ title, description, items, genreEntries }
         </section>
       )}
     </main>
+  );
+}
+
+export function BrowseShowcaseClient(props: BrowseShowcaseClientProps) {
+  return (
+    <Suspense fallback={
+      <main className="container py-6">
+        <div className="surface-panel px-6 py-12 text-center">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-primary border-r-transparent"></div>
+          <p className="mt-4 text-white/65">Loading...</p>
+        </div>
+      </main>
+    }>
+      <BrowseShowcaseContent {...props} />
+    </Suspense>
   );
 }
