@@ -92,6 +92,9 @@ export function Header() {
                 aria-label="Search titles"
               />
             </div>
+            <Button type="submit" className="rounded-full px-4" aria-label="Submit search">
+              <Search className="h-4 w-4" />
+            </Button>
           </form>
 
           <div className="ml-auto flex items-center gap-2 md:hidden">
@@ -106,14 +109,7 @@ export function Header() {
             </button>
           </div>
 
-          <div className="hidden items-center gap-2 md:flex">
-            <Button asChild variant="ghost" className="hidden rounded-full text-white/80 hover:bg-white/5 hover:text-white xl:inline-flex">
-              <Link href="/auth/login">Login</Link>
-            </Button>
-            <Button asChild className="rounded-full px-5">
-              <Link href="/auth/signup">Get Started</Link>
-            </Button>
-          </div>
+
         </div>
 
         {mobileOpen ? (
@@ -150,14 +146,7 @@ export function Header() {
               ))}
             </nav>
 
-            <div className="mt-4 grid gap-2">
-              <Button asChild variant="ghost" className="w-full rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10 hover:text-white">
-                <Link href="/auth/login">Login</Link>
-              </Button>
-              <Button asChild className="w-full rounded-full">
-                <Link href="/auth/signup">Get Started</Link>
-              </Button>
-            </div>
+
           </div>
         ) : null}
       </div>

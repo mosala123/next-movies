@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { UserCircle2 } from "lucide-react";
+import { Compass } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -25,9 +25,9 @@ export default function DashboardPage() {
             </Button>
             {!user ? (
               <Button asChild variant="outline" className="rounded-full border-white/10 bg-white/5 text-white hover:bg-white/10 hover:text-white">
-                <Link href="/auth/login">
-                  <UserCircle2 className="mr-2 h-4 w-4" />
-                  Sign in
+                <Link href="/trending">
+                  <Compass className="mr-2 h-4 w-4" />
+                  Explore trending
                 </Link>
               </Button>
             ) : null}

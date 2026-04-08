@@ -173,6 +173,19 @@ export const getTopRatedSeries = () => getTvList("/tv/top_rated");
 export const getArabicMovies = () => getMovieList("/discover/movie", { language: "ar-EG", sort_by: "popularity.desc", with_original_language: "ar" });
 export const getArabicSeries = () => getTvList("/discover/tv", { language: "ar-EG", sort_by: "popularity.desc", with_original_language: "ar" });
 export const getDocumentaries = () => getMovieList("/discover/movie", { with_genres: 99, sort_by: "popularity.desc" });
+export const searchMovies = (query: string) => getMovieList("/search/movie", { query });
+export const searchSeries = (query: string) => getTvList("/search/tv", { query });
+
+export async function searchMedia(query: string) {
+  const data = await tmdbFetch<TMDBListResponse<TMDBMovieResult & Partial<TMDBTVResult> & { media_type?: string }>>("/search/multi", {
+    language: "en-US",
+    query,
+  });
+
+  return data.results
+    .filter((item) => item.media_type === "movie" || item.media_type === "tv")
+    .map((item) => (item.media_type === "tv" ? normalizeTV(item as TMDBTVResult) : normalizeMovie(item)));
+}
 
 export async function getTrendingMedia() {
   const data = await tmdbFetch<TMDBListResponse<TMDBMovieResult & Partial<TMDBTVResult> & { media_type?: string }>>("/trending/all/week", {

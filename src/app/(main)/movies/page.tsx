@@ -2,20 +2,27 @@ import type { Metadata } from "next";
 
 import { BrowseShowcase } from "@/components/common/browse-showcase";
 import { TmdbState } from "@/components/common/tmdb-state";
-import { getGenreMap, getPopularMovies } from "@/lib/tmdb";
+import { getGenreMap, getPopularMovies, searchMovies } from "@/lib/tmdb";
 
 export const metadata: Metadata = {
   title: "Movies",
 };
 
-export default async function MoviesPage() {
+type MoviesPageProps = {
+  searchParams?: {
+    q?: string;
+  };
+};
+
+export default async function MoviesPage({ searchParams }: MoviesPageProps) {
   try {
-    const [items, genreMap] = await Promise.all([getPopularMovies(), getGenreMap()]);
+    const query = searchParams?.q?.trim();
+    const [items, genreMap] = await Promise.all([query ? searchMovies(query) : getPopularMovies(), getGenreMap()]);
 
     return (
       <BrowseShowcase
         title="Movies"
-        description="Popular films with live TMDB data, cinematic depth, and a polished browse layout."
+        description={query ? `Search results for "${query}" across TMDB movies.` : "Popular films with live TMDB data, cinematic depth, and a polished browse layout."}
         items={items}
         genreMap={genreMap}
       />
